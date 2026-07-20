@@ -19,7 +19,7 @@ public class ConnectionSingleton {
     
     static {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Nạp driver
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -27,7 +27,7 @@ public class ConnectionSingleton {
     
     private ConnectionSingleton() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "Thanhtuan3107@");
+            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/StudentDB", "root", "");
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,7 +44,7 @@ public class ConnectionSingleton {
         return this.conn;
     }
     
-    public void close() {
+    public void close() { // Đóng kết nối
         if (this.conn != null)
             try {
                 this.conn.close();

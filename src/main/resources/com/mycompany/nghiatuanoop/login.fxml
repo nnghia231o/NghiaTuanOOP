@@ -7,26 +7,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="ĐĂNG NHẬP" />
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Mini-subject" text="Tài khoản:" />
-            <TextField prefHeight="46.0" prefWidth="351.0" styleClass="Mini-subject" />
+            <TextField fx:id="txtUsername" prefHeight="46.0" prefWidth="351.0" styleClass="Mini-subject" />
          </children>
       </HBox>
       <HBox layoutX="10.0" layoutY="26.0" prefHeight="100.0" prefWidth="200.0" styleClass="Container">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Mini-subject" text="Mật khẩu:" />
-            <PasswordField prefHeight="45.0" prefWidth="344.0" styleClass="Mini-subject" />
+            <PasswordField fx:id="txtPassword" prefHeight="45.0" prefWidth="344.0" styleClass="Mini-subject" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
          <children>
-            <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="270.0" styleClass="Button" text="Đăng nhập" />
-            <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="255.0" style="-fx-background-color: blue;" styleClass="Button" text="Thoát" />
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLogin_Click" prefHeight="61.0" prefWidth="270.0" styleClass="Button" text="Đăng nhập" />
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#btnExit_Click" prefHeight="62.0" prefWidth="255.0" style="-fx-background-color: blue;" styleClass="Button" text="Thoát" />
          </children>
       </HBox>
    </children>

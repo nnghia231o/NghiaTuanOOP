@@ -21,7 +21,7 @@ INSERT INTO Major(major_name)
 VALUES
 ('Information Technology'),
 ('Business'),
-('English');account
+('English');
 
 -- Bảng sinh viên
 CREATE TABLE Student(

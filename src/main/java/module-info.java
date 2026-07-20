@@ -5,5 +5,7 @@ module com.mycompany.nghiatuanoop {
     requires java.sql;
 
     opens com.mycompany.nghiatuanoop to javafx.fxml;
+    opens controller to javafx.fxml;
+    
     exports com.mycompany.nghiatuanoop;
 }

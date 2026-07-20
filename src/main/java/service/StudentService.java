@@ -4,10 +4,34 @@
  */
 package service;
 
+import java.util.List;
+import pojo.Student;
 /**
  *
  * @author USER
  */
 public class StudentService {
-    
+    public List<Student> getAllStudent(){
+
+        return null;
+
+    }
+
+    public boolean insertStudent(Student student){
+
+        return false;
+
+    }
+
+    public boolean updateStudent(Student student){
+
+        return false;
+
+    }
+
+    public boolean deleteStudent(int id){
+
+        return false;
+
+    }
 }

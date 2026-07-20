@@ -4,10 +4,15 @@
  */
 package service;
 
-/**
- *
- * @author USER
- */
+import java.util.List;
+import pojo.Major;
+
 public class MajorService {
-    
+
+    public List<Major> getAllMajor(){
+
+        return null;
+
+    }
+
 }
