@@ -1,7 +1,10 @@
 package controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.LoginService;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     private TextField txtUsername;
@@ -39,8 +42,7 @@ public class LoginController {
         if (loginService.login(username, password)) {
 
             try {
-
-                Parent root = FXMLLoader.load(getClass().getResource("student.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/nghiatuanoop/student.fxml"));
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -60,7 +62,6 @@ public class LoginController {
             alert.setHeaderText(null);
             alert.setContentText("Sai tài khoản hoặc mật khẩu!");
             alert.show();
-
         }
     }
         
@@ -71,4 +72,8 @@ public class LoginController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       
+    }
 }
