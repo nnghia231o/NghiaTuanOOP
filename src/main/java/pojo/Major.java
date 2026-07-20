@@ -35,6 +35,10 @@ public class Major {
     public void setMajorName(String majorName) {
         this.majorName = majorName;
     }
-    
-    
+
+    //Hiện tên môn học
+    @Override
+    public String toString() {
+        return majorName;
+    }
 }
