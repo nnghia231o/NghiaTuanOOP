@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -19,8 +20,11 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Mini-subject" text="Giới tinh" />
-                  <RadioButton mnemonicParsing="false" styleClass="Mini-subject" text="Nam" />
-                  <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="116.0" styleClass="Mini-subject" text="Nữ" />
+                  <RadioButton mnemonicParsing="false" styleClass="Mini-subject" text="Nam">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="116.0" styleClass="Mini-subject" text="Nữ" toggleGroup="$group" />
                </children>
             </VBox>
             <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="99.0" styleClass="Button" text="Thêm" />

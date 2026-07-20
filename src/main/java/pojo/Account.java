@@ -9,5 +9,8 @@ package pojo;
  * @author USER
  */
 public class Account {
+    private String username;
+    private String password;
+    
     
 }
