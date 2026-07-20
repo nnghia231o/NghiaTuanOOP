@@ -6,30 +6,51 @@ package singleton;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author USER
  */
 public class ConnectionSingleton {
-    private static Connection connection;
+    private static ConnectionSingleton instance;//static là biến dùng chung cho tất cả các đối tượng của một class và thuộc về class đó
+    private Connection conn;
+    
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     private ConnectionSingleton() {
-        
-    }
-    
-    public static Connection getConnection() {
         try {
-            if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/StudentDB",
-                        "root",
-                        "Thanhtuan3107@");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdb", "root", "Thanhtuan3107@");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return connection;
     }
     
+    public static ConnectionSingleton getInstance() {
+        if (instance == null)
+            instance = new ConnectionSingleton();
+        
+        return instance;
+    }
+    
+    public Connection connect() {
+        return this.conn;
+    }
+    
+    public void close() {
+        if (this.conn != null)
+            try {
+                this.conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 }
 
