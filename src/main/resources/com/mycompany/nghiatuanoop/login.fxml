@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
-    
-</AnchorPane>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="ĐĂNG NHẬP" />
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Mini-subject" text="Tài khoản:" />
+            <TextField prefHeight="83.0" prefWidth="351.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="26.0" prefHeight="100.0" prefWidth="200.0" styleClass="Container">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Mini-subject" text="Mật khẩu:" />
+            <PasswordField prefHeight="310.0" prefWidth="344.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="303.0" styleClass="Button" text="Đăng nhập" />
+            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="255.0" style="-fx-background-color: blue;" styleClass="Button" text="Thoát" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,20 @@
+.Container{
+    -fx-background: pink;
+    -fx-padding: 20;
+    -fx-spacing: 30;
+    -fx-alignment: CENTER;
+}
+.Subject{
+    -fx-font-size: 35;
+    -fx-font-weight: bold;
+    -fx-fill: yellow; 
+}
+.Mini-subject{
+    -fx-font-size: 18;
+    -fx-fill: green; 
+}
+.Button{
+    -fx-font-size: 25;
+    -fx-text-fill: yellow;
+    -fx-background-color: green;
+}
