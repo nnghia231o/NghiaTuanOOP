@@ -22,14 +22,17 @@ public class StudentService {
 
     Connection conn = ConnectionSingleton.getInstance().connect();
 
-    String sql = "SELECT * FROM Student";
+    String sql = "SELECT s.student_id, s.full_name, s.age, s.gender, "
+               + "m.major_id, m.major_name "
+               + "FROM Student s "
+               + "JOIN Major m ON s.major_id = m.major_id";
 
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-            Major major = new Major("major_id","major_name");
+            Major major = new Major(rs.getString("major_id"),rs.getString("major_name"));
             Student s = new Student(
                     rs.getString("student_id"),
                     rs.getString("full_name"),
