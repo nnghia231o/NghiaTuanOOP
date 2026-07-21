@@ -1,5 +1,6 @@
 package service;
 
+import factory.StudentFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,12 +39,12 @@ public class StudentService {
                         rs.getString("major_name")
                 );
 
-                Student s = new Student(
-                        rs.getString("student_id"),
-                        rs.getString("full_name"),
-                        rs.getInt("age"),
-                        rs.getString("gender"),
-                        major
+                Student s = StudentFactory.createStudent(
+                    rs.getString("student_id"),
+                    rs.getString("full_name"),
+                    rs.getInt("age"),
+                    rs.getString("gender"),
+                    major
                 );
 
                 list.add(s);

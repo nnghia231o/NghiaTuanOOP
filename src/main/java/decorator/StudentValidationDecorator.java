@@ -1,13 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package decorator;
 
-/**
- *
- * @author USER
- */
-public class StudentValidationDecorator {
-    
+import pojo.Student;
+import service.StudentService;
+
+public class StudentValidationDecorator extends StudentDecorator {
+
+    public StudentValidationDecorator(StudentService studentService) {
+        super(studentService);
+    }
+
+    @Override
+    public boolean addStudent(Student student) {
+
+        if(student.getName().trim().isEmpty()){
+            System.out.println("Tên không được rỗng");
+            return false;
+        }
+
+        if(student.getAge() <= 0){
+            System.out.println("Tuổi không hợp lệ");
+            return false;
+        }
+
+        return super.addStudent(student);
+
+    }
+
 }

@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package decorator;
 
-/**
- *
- * @author USER
- */
+import pojo.Student;
+import service.StudentService;
+
 public class StudentDecorator {
-    
+// Lưu StudentService gốc
+    protected StudentService studentService;
+// Nhận StudentService từ ngoài truyền vào
+    public StudentDecorator(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    public boolean addStudent(Student student) {
+        return studentService.addStudent(student);// Gọi hàm thật của StudentService
+    }
+
 }

@@ -4,6 +4,9 @@
  */
 package controller;
 
+import builder.StudentBuilder;
+import decorator.StudentValidationDecorator;
+import facade.StudentFacade;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -59,12 +62,16 @@ public class StudentController implements Initializable {
     @FXML
     private ComboBox<Major> cboMajor;
 
-    private MajorService majorService = new MajorService();
-    private StudentService studentService = new StudentService();
+    //private MajorService majorService = new MajorService();
+    //private StudentService studentService = new StudentService();
+    //private StudentValidationDecorator decorator =
+        //new StudentValidationDecorator(studentService); 
+    // 4 dòng trên thay cho dognf này vì facade
+    private StudentFacade facade = new StudentFacade();
     
     private void loadMajor() {
         //Chuyển List thành obser để Java sử dụng
-        ObservableList<Major> list =FXCollections.observableArrayList(majorService.getAllMajor());
+        ObservableList<Major> list =FXCollections.observableArrayList(facade.getAllMajor());
         //đưa dữ liệu lên combobox
         cboMajor.setItems(list);
     }
@@ -88,7 +95,7 @@ public class StudentController implements Initializable {
 
         ObservableList<Student> list =
                 FXCollections.observableArrayList(
-                        studentService.getAllStudents());
+                        facade.getAllStudents());
 
         tvInformation.setItems(list);
 
@@ -184,16 +191,15 @@ public class StudentController implements Initializable {
         }
 
         String gender = rdoMale.isSelected() ? "Male" : "Female";
-
-        Student student = new Student(
-                null,
-                name,
-                age,
-                gender,
-                major
-        );
-
-        if (studentService.addStudent(student)) {
+// Builder Student dùng ở đây
+        Student student = new StudentBuilder()
+                .setName(name)
+                .setAge(age)
+                .setGender(gender)
+                .setMajor(major)
+                .build();
+// Decorator ở đây
+        if (facade.addStudent(student)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
@@ -266,7 +272,7 @@ public class StudentController implements Initializable {
         student.setGender(gender);
         student.setMajor(major);
 
-        if (studentService.updateStudent(student)) {
+        if (facade.updateStudent(student)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
@@ -313,7 +319,7 @@ public class StudentController implements Initializable {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
 
-            if (studentService.deleteStudent(student.getId())) {
+            if (facade.deleteStudent(student.getId())) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);

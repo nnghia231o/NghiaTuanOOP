@@ -1,13 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package facade;
 
-/**
- *
- * @author USER
- */
+import decorator.StudentValidationDecorator;
+import java.util.List;
+import pojo.Major;
+import pojo.Student;
+import service.MajorService;
+import service.StudentService;
+
 public class StudentFacade {
-    
+
+    private StudentService studentService = new StudentService();
+    private MajorService majorService = new MajorService();
+    private StudentValidationDecorator decorator =
+        new StudentValidationDecorator(studentService);
+
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
+    }
+
+    public List<Major> getAllMajor() {
+        return majorService.getAllMajor();
+    }
+
+    public boolean addStudent(Student student) {
+        return decorator.addStudent(student);
+    }
+
+    public boolean updateStudent(Student student) {
+        return studentService.updateStudent(student);
+    }
+
+    public boolean deleteStudent(String id) {
+        return studentService.deleteStudent(id);
+    }
+
 }
