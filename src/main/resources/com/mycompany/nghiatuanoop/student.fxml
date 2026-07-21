@@ -48,8 +48,8 @@
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
          <children>
             <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#btnAdd_Click" prefHeight="44.0" prefWidth="99.0" styleClass="Button" text="Thêm" />
-            <Button fx:id="btnRemove" mnemonicParsing="false" prefHeight="42.0" prefWidth="91.0" styleClass="Button" text="Xóa" />
-            <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="44.0" prefWidth="90.0" styleClass="Button" text="Sửa" />
+            <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnDelete_Click" prefHeight="42.0" prefWidth="91.0" styleClass="Button" text="Xóa" />
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdate_Click" prefHeight="44.0" prefWidth="90.0" styleClass="Button" text="Sửa" />
             <Button mnemonicParsing="false" onAction="#logout" prefHeight="44.0" prefWidth="99.0" style="-fx-background-color: blue;" styleClass="Button" text="Đăng xuất" />
          </children>
       </HBox>

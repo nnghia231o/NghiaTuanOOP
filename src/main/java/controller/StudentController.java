@@ -5,6 +5,7 @@
 package controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +27,8 @@ import pojo.Major;
 import pojo.Student;
 import service.MajorService;
 import service.StudentService;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 
 /**
@@ -154,12 +157,33 @@ public class StudentController implements Initializable {
     private void btnAdd_Click() {
 
         String name = txtName.getText().trim();
+        String ageText = txtAge.getText().trim();
+        Major major = cboMajor.getValue();
 
-        int age = Integer.parseInt(txtAge.getText().trim());
+        // Kiểm tra nhập đủ thông tin
+        if (name.isEmpty() || ageText.isEmpty() || major == null
+                || (!rdoMale.isSelected() && !rdoFemale.isSelected())) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng nhập đầy đủ thông tin!");
+            alert.show();
+            return;
+        }
+
+        int age;
+
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Tuổi phải là số!");
+            alert.show();
+            return;
+        }
 
         String gender = rdoMale.isSelected() ? "Male" : "Female";
-
-        Major major = cboMajor.getValue();
 
         Student student = new Student(
                 null,
@@ -171,17 +195,153 @@ public class StudentController implements Initializable {
 
         if (studentService.addStudent(student)) {
 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Thêm sinh viên thành công!");
+            alert.show();
+
             loadStudent();
 
+            // Xóa dữ liệu trên form
+            txtName.clear();
+            txtAge.clear();
+            cboMajor.getSelectionModel().clearSelection();
+            rdoMale.setSelected(false);
+            rdoFemale.setSelected(false);
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Thêm sinh viên thất bại!");
+            alert.show();
+        }
+    }
+    @FXML
+    private void btnUpdate_Click() {
+
+        Student student = tvInformation.getSelectionModel().getSelectedItem();
+
+        if (student == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng chọn sinh viên cần sửa!");
+            alert.show();
+            return;
         }
 
+        String name = txtName.getText().trim();
+        String ageText = txtAge.getText().trim();
+        Major major = cboMajor.getValue();
+
+        // Kiểm tra nhập đủ thông tin
+        if (name.isEmpty() || ageText.isEmpty()
+                || major == null
+                || (!rdoMale.isSelected() && !rdoFemale.isSelected())) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng nhập đầy đủ thông tin!");
+            alert.show();
+            return;
+        }
+
+        int age;
+
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Tuổi phải là số!");
+            alert.show();
+            return;
+        }
+
+        String gender = rdoMale.isSelected() ? "Male" : "Female";
+
+        student.setName(name);
+        student.setAge(age);
+        student.setGender(gender);
+        student.setMajor(major);
+
+        if (studentService.updateStudent(student)) {
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Cập nhật thành công!");
+            alert.show();
+
+            loadStudent();
+
+            // Xóa dữ liệu trên form
+            txtName.clear();
+            txtAge.clear();
+            cboMajor.getSelectionModel().clearSelection();
+            rdoMale.setSelected(false);
+            rdoFemale.setSelected(false);
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Cập nhật thất bại!");
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void btnDelete_Click() {
+
+        Student student = tvInformation.getSelectionModel().getSelectedItem();
+
+        if (student == null) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Vui lòng chọn sinh viên cần xóa!");
+            alert.show();
+            return;
+        }
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setHeaderText(null);
+        confirm.setContentText("Bạn có chắc muốn xóa sinh viên này?");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            if (studentService.deleteStudent(student.getId())) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Xóa thành công!");
+                alert.show();
+
+                loadStudent();
+
+                txtName.clear();
+                txtAge.clear();
+                cboMajor.getSelectionModel().clearSelection();
+                rdoMale.setSelected(false);
+                rdoFemale.setSelected(false);
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Xóa thất bại!");
+                alert.show();
+            }
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         loadMajor();
-         loadStudent();
-         loadForm();
-    }    
-    
+        loadMajor();
+        loadStudent();
+        loadForm();
+}
 }

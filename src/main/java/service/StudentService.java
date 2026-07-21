@@ -85,4 +85,49 @@ public class StudentService {
         return false;
     }
 
+    public boolean updateStudent(Student s) {
+
+        Connection conn = ConnectionSingleton.getInstance().connect();
+
+            String sql = "UPDATE Student "
+               + "SET full_name = ?, age = ?, gender = ?, major_id = ? "
+               + "WHERE student_id = ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, s.getName());
+            ps.setInt(2, s.getAge());
+            ps.setString(3, s.getGender());
+            ps.setInt(4, s.getMajor().getMajorID());
+            ps.setString(5, s.getId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+        public boolean deleteStudent(String id) {
+
+        Connection conn = ConnectionSingleton.getInstance().connect();
+
+        String sql = "DELETE FROM Student WHERE student_id = ?";
+
+        try {
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, id);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
