@@ -32,7 +32,7 @@ public class StudentService {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-            Major major = new Major(rs.getString("major_id"),rs.getString("major_name"));
+            Major major = new Major(rs.getInt("major_id"),rs.getString("major_name"));
             Student s = new Student(
                     rs.getString("student_id"),
                     rs.getString("full_name"),

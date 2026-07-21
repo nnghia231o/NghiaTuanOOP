@@ -32,7 +32,7 @@ public class MajorService {
 
                 Major major = new Major();
 
-                major.setMajorID(rs.getString("major_id"));
+                major.setMajorID(rs.getInt("major_id"));
                 major.setMajorName(rs.getString("major_name"));
 
                 list.add(major);

@@ -9,10 +9,10 @@ package pojo;
  * @author USER
  */
 public class Major {
-    private String majorID;
+    private int majorID;
     private String majorName;
 
-    public Major(String majorID, String majorName) {
+    public Major(int majorID, String majorName) {
         this.majorID = majorID;
         this.majorName = majorName;
     }
@@ -20,7 +20,7 @@ public class Major {
     public Major() {
     }
 
-    public String getMajorID() {
+    public int getMajorID() {
         return majorID;
     }
 
@@ -28,7 +28,7 @@ public class Major {
         return majorName;
     }
 
-    public void setMajorID(String majorID) {
+    public void setMajorID(int majorID) {
         this.majorID = majorID;
     }
 
