@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package service;
 
 import java.sql.Connection;
@@ -12,42 +8,81 @@ import java.util.List;
 import pojo.Major;
 import pojo.Student;
 import singleton.ConnectionSingleton;
-/**
- *
- * @author USER
- */
+
 public class StudentService {
+
+    //======================
+    // Lấy danh sách sinh viên
+    //======================
     public List<Student> getAllStudents() {
-    List<Student> list = new ArrayList<>();
 
-    Connection conn = ConnectionSingleton.getInstance().connect();
+        List<Student> list = new ArrayList<>();
 
-    String sql = "SELECT s.student_id, s.full_name, s.age, s.gender, "
-               + "m.major_id, m.major_name "
-               + "FROM Student s "
-               + "JOIN Major m ON s.major_id = m.major_id";
+        Connection conn = ConnectionSingleton.getInstance().connect();
 
-    try {
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
+        String sql = "SELECT s.student_id, s.full_name, s.age, s.gender, "
+                   + "m.major_id, m.major_name "
+                   + "FROM Student s "
+                   + "JOIN Major m ON s.major_id = m.major_id";
 
-        while (rs.next()) {
-            Major major = new Major(rs.getInt("major_id"),rs.getString("major_name"));
-            Student s = new Student(
-                    rs.getString("student_id"),
-                    rs.getString("full_name"),
-                    rs.getInt("age"),
-                    rs.getString("gender"),
-                    major
-            );
+        try {
 
-            list.add(s);
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Major major = new Major(
+                        rs.getInt("major_id"),
+                        rs.getString("major_name")
+                );
+
+                Student s = new Student(
+                        rs.getString("student_id"),
+                        rs.getString("full_name"),
+                        rs.getInt("age"),
+                        rs.getString("gender"),
+                        major
+                );
+
+                list.add(s);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        return list;
     }
 
-    return list;
-}
+    //======================
+    // Thêm sinh viên
+    //======================
+    public boolean addStudent(Student student) {
+
+        try {
+
+            Connection conn = ConnectionSingleton.getInstance().connect();
+
+            String sql = "INSERT INTO Student(full_name, age, gender, major_id) "
+                       + "VALUES(?,?,?,?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, student.getName());
+            ps.setInt(2, student.getAge());
+            ps.setString(3, student.getGender());
+            ps.setInt(4, student.getMajor().getMajorID());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }

@@ -16,8 +16,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pojo.Major;
@@ -108,10 +110,78 @@ public class StudentController implements Initializable {
         }
     }
     
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtAge;
+
+    @FXML
+    private RadioButton rdoFemale;
+
+    @FXML
+    private RadioButton rdoMale;
+    
+    private void loadForm() {
+
+        tvInformation.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((obs, oldValue, student) -> {
+
+            if (student != null) {
+
+                txtName.setText(student.getName());
+
+                txtAge.setText(
+                        String.valueOf(student.getAge()));
+
+                cboMajor.setValue(student.getMajor());
+
+                if (student.getGender().equals("Male")) {
+
+                    rdoMale.setSelected(true);
+
+                } else {
+
+                    rdoFemale.setSelected(true);
+
+                }
+            }
+        });
+    }
+    
+    @FXML
+    private void btnAdd_Click() {
+
+        String name = txtName.getText().trim();
+
+        int age = Integer.parseInt(txtAge.getText().trim());
+
+        String gender = rdoMale.isSelected() ? "Male" : "Female";
+
+        Major major = cboMajor.getValue();
+
+        Student student = new Student(
+                null,
+                name,
+                age,
+                gender,
+                major
+        );
+
+        if (studentService.addStudent(student)) {
+
+            loadStudent();
+
+        }
+
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          loadMajor();
          loadStudent();
+         loadForm();
     }    
     
 }
