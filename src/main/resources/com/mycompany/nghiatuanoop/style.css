@@ -12,6 +12,7 @@
 .Mini-subject{
     -fx-font-size: 18;
     -fx-fill: green; 
+    -fx-align-content: CENTER;
 }
 .Button{
     -fx-font-size: 15;

@@ -38,14 +38,9 @@ public class StudentController implements Initializable {
         cboMajor.setItems(list);
     }
     
-    @FXML
-    public void initialize() {
-
-        loadMajor();
-
-    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         loadMajor();
     }    
     
 }
