@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package AbstractFactory;
+package abstractfactory;
 
-/**
- *
- * @author pc
- */
-public class AbstractFactory {
-    
+import pojo.Major;
+import pojo.Student;
+
+public abstract class AbstractFactory {
+
+    public abstract Student createStudent(
+            String id,
+            String name,
+            int age,
+            String gender,
+            Major major);
 }

@@ -4,10 +4,15 @@
  */
 package facade;
 
+import service.LoginService;
+
 /**
  *
  * @author USER
  */
 public class LoginFacade {
-    
+    private LoginService loginService = new LoginService();
+    public boolean login(String username, String password) {
+        return loginService.login(username, password);
+    }
 }

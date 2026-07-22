@@ -13,10 +13,15 @@ import java.util.logging.Logger;
  *
  * @author USER
  */
+
+// Áp dụng Singleton Pattern để chỉ tạo 1 kết nối Database
 public class ConnectionSingleton {
-    private static ConnectionSingleton instance;//static là biến dùng chung cho tất cả các đối tượng của một class và thuộc về class đó
+    //static là biến dùng chung cho tất cả các đối tượng của một class và thuộc về class đó
+    private static ConnectionSingleton instance;
+    // Đối tượng Singleton dùng chung cho toàn bộ chương trình
     private Connection conn;
     
+    // Nạp Driver MySQL khi class được load
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // Nạp driver
@@ -25,14 +30,16 @@ public class ConnectionSingleton {
         }
     }
     
+    // chức năng kết nối đến Database
     private ConnectionSingleton() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/StudentDB", "root", "Nn@231o@06");
+            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/StudentDB", "root", "Thanhtuan3107@");
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionSingleton.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    // Lấy 1 đối tượng ConnectionSingleton duy nhất
     public static ConnectionSingleton getInstance() {
         if (instance == null)
             instance = new ConnectionSingleton();
@@ -40,11 +47,13 @@ public class ConnectionSingleton {
         return instance;
     }
     
+    // Trả về Connection để sử dụng
     public Connection connect() {
         return this.conn;
     }
     
-    public void close() { // Đóng kết nối
+    // Đóng kết nối Database
+    public void close() { 
         if (this.conn != null)
             try {
                 this.conn.close();

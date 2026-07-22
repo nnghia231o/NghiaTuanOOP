@@ -12,68 +12,51 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.LoginService;
+import singleton.MyAlertSingleton;
+import singleton.MyStageSingleton;
 
 public class LoginController implements Initializable {
-
     @FXML
     private TextField txtUsername;
-
     @FXML
     private PasswordField txtPassword;
-
+    
+    //private LoginFacade facade = new LoginFacade();
+    //facade sẽ thay phần dưới
     private LoginService loginService = new LoginService();
     
+    //Sự kiện Nhấn nút đăng nhập
     @FXML
-    private void btnLogin_Click() { // SK CLICK nút
-
+    private void btnLogin_Click() { 
         String username = txtUsername.getText().trim();
         String password = txtPassword.getText().trim();
-
         if (username.isEmpty() || password.isEmpty()) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText("Vui lòng nhập đầy đủ thông tin!");
-            alert.show();
-
+            MyAlertSingleton.getInstance().showMsg("Vui lòng nhập đầy đủ thông tin!",Alert.AlertType.WARNING);
             return;
         }
 
+        //if (facade.login(username, password)) {
+        //facade sẽ thay phần dưới
         if (loginService.login(username, password)) {
-
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/com/mycompany/nghiatuanoop/student.fxml"));
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Student Management");
-                stage.show();
-
+                MyStageSingleton.getInstance().showStage("student");
                 Stage currentStage = (Stage) txtUsername.getScene().getWindow();
                 currentStage.close();
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         } else {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Sai tài khoản hoặc mật khẩu!");
-            alert.show();
+            MyAlertSingleton.getInstance().showMsg("Sai tài khoản hoặc mật khẩu!",Alert.AlertType.ERROR);
         }
     }
         
+    //Sự kiện nhấn nút thoát
     @FXML
     private void btnExit_Click() {
-
         System.exit(0);
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
     }
 }

@@ -4,10 +4,13 @@
  */
 package strategy;
 
+import java.util.List;
+import pojo.Student;
+
 /**
  *
  * @author pc
  */
-public class StudentStrategy {
-    
+public interface StudentStrategy {
+    List<Student> execute(List<Student> students);
 }

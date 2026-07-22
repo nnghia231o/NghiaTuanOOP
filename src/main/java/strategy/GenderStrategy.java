@@ -4,10 +4,21 @@
  */
 package strategy;
 
+import java.util.Comparator;
+import java.util.List;
+import pojo.Student;
+
 /**
  *
  * @author pc
  */
-public class GenderStrategy {
-    
+public class GenderStrategy implements StudentStrategy {
+
+    @Override
+    public List<Student> execute(List<Student> students) {
+
+        students.sort(Comparator.comparing(Student::getGender));
+
+        return students;
+    }
 }

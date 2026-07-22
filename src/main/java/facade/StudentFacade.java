@@ -8,11 +8,9 @@ import service.MajorService;
 import service.StudentService;
 
 public class StudentFacade {
-
     private StudentService studentService = new StudentService();
     private MajorService majorService = new MajorService();
-    private StudentValidationDecorator decorator =
-        new StudentValidationDecorator(studentService);
+    private StudentValidationDecorator decorator = new StudentValidationDecorator(studentService);
 
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();

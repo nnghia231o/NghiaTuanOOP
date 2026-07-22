@@ -4,10 +4,21 @@
  */
 package strategy;
 
+import java.util.List;
+import pojo.Student;
+
 /**
  *
  * @author pc
  */
 public class StudentContext {
-    
+    private StudentStrategy strategy;
+
+    public StudentContext(StudentStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public List<Student> executeStrategy(List<Student> students) {
+        return strategy.execute(students);
+    }
 }
